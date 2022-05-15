@@ -1,13 +1,11 @@
-import { Pool } from 'mysql2/promise';
-import { IRegisteredProduct } from '../useCases/product/productDTO';
+import { IRegisteredProduct } from '../@types/product';
+import connection from './connection';
 
 export default class ProductModel {
-  constructor(private connection: Pool) {}
-
-  public async getAllProducts():Promise <IRegisteredProduct[] | null> {
-    const [result] = await this.connection.execute(`
-    SELECT * FROM Products
+  public getAll = async ():Promise <IRegisteredProduct[] | null> => {
+    const [result] = await connection.execute(`
+    SELECT * FROM Trybesmith.Products
     `);
     return result as IRegisteredProduct[];
-  }
+  };
 }
