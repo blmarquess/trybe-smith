@@ -1,10 +1,20 @@
-import { Request, Response } from 'express';
-import ProductModel from '../../models/productModel';
+import { Request, Response, NextFunction } from 'express';
+import ProductService from './productService';
 
 class ProductController {
-  public async getAll(_req: Request, res: Response) {
-    const result = await ProductModel.getAllProducts();
-    return res.status(200).json(result);
+  private service: ProductService;
+  
+  constructor() {
+    this.service = new ProductService();
+  }
+
+  public async getAll(_req: Request, res: Response, next:NextFunction): Promise<Response | void> {
+    try {
+      const data = await this.service.getAllProducts();
+      return res.status(201).json(data);
+    } catch (e) {
+      return next(e);
+    }
   }
 }
 
