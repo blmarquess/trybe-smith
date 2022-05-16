@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import ProductService from '../services/productService';
-// import { IRegisteredProduct } from '../@types/product';
 
 export default class ProductsController {
   constructor(private service = new ProductService()) {}
