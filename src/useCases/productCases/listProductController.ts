@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import ProductService from '../services/productService';
+import ListProduct from './listProduct';
 
-export default class ProductsController {
-  constructor(private service = new ProductService()) {}
+export default class ListProductsController {
+  constructor(private service = new ListProduct()) {}
 
   public getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
