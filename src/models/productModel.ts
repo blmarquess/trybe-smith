@@ -1,4 +1,5 @@
-import { IRegisteredProduct } from '../@types/product';
+import { RowDataPacket } from 'mysql2';
+import { IRegisteredProduct, IProduct } from '../useCases/productCases/repository/product';
 import connection from './connection';
 
 export default class ProductModel {
@@ -7,5 +8,13 @@ export default class ProductModel {
     SELECT * FROM Trybesmith.Products
     `);
     return result as IRegisteredProduct[];
+  };
+
+  public create = async (product: IProduct): Promise<RowDataPacket> => {
+    const [result] = await connection.execute(`
+      INSERT INTO Trybesmith.Products (name, amount)
+      VALUES (?, ?)
+      `, [product.name, product.amount]);
+    return result as RowDataPacket;
   };
 }
