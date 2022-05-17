@@ -4,3 +4,7 @@ export interface IUserRepository{
   level: number;
   password: string;
 }
+
+export interface IUserToken {
+  token: string;
+}
