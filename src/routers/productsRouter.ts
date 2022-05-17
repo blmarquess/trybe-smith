@@ -1,8 +1,11 @@
 import { Router } from 'express';
-import ProductController from '../controllers/productController';
+import CreateProductController from '../useCases/productCases/createProductController';
+import ListProductsController from '../useCases/productCases/listProductController';
 
 const routes = Router();
 
-routes.get('/', new ProductController().getAll);
+routes.get('/', new ListProductsController().getAll);
+
+routes.post('/', new CreateProductController().execute);
 
 export default routes;
