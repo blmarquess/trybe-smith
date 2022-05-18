@@ -3,18 +3,20 @@ import { IRegisteredProduct, IProduct } from '../useCases/productCases/repositor
 import connection from './connection';
 
 export default class ProductModel {
-  public getAll = async ():Promise <IRegisteredProduct[] | null> => {
-    const [result] = await connection.execute(`
+  constructor(private queryExecute = connection) { }
+
+  public async getAll():Promise <IRegisteredProduct[] | null> {
+    const [result] = await this.queryExecute.execute(`
     SELECT * FROM Trybesmith.Products
     `);
     return result as IRegisteredProduct[];
-  };
+  }
 
-  public create = async (product: IProduct): Promise<RowDataPacket> => {
-    const [result] = await connection.execute(`
+  public async create(product: IProduct): Promise<RowDataPacket> {
+    const [result] = await this.queryExecute.execute(`
       INSERT INTO Trybesmith.Products (name, amount)
       VALUES (?, ?)
       `, [product.name, product.amount]);
     return result as RowDataPacket;
-  };
+  }
 }

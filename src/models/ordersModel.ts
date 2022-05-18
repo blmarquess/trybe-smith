@@ -12,8 +12,10 @@ FROM
     Trybesmith.Products AS Products ON Orders.id = Products.orderId;`;
 
 export default class OrdersModel {
+  constructor(private queryExecute = connection) { }
+
   public getAllOrders = async () => {
-    const [result] = await connection.execute(QUERY);
+    const [result] = await this.queryExecute.execute(QUERY);
     return result;
   };
 }
