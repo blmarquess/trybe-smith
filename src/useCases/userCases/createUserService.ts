@@ -1,11 +1,16 @@
 import UserModel from '../../models/userModel';
-import { IUserRepository } from './repository/UserRepository';
+import GenerateAuthToken from '../auth/generateAuthToken';
+import { IUserRepository, IUserToken } from './repository/UserRepository';
 
 export default class CreateUserService {
   public repository = new UserModel();
 
-  public async execute(request: IUserRepository): Promise<Response> {
+  public genToken = new GenerateAuthToken();
+
+  public async execute(request: IUserRepository): Promise<IUserToken> {
     const user = await this.repository.create(request);
-    return user as Response;
+
+    const newToken = this.genToken.execute({ username: request.username, id: user.insertId });
+    return newToken;
   }
 }

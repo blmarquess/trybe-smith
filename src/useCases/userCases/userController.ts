@@ -17,8 +17,8 @@ export default class UserController {
       if (error) {
         return res.status(422).json({ message: error.message });
       }
-      const user = await this.service.execute({ username, classe, level, password });
-      return res.status(201).json(user);
+      const userAuth = await this.service.execute({ username, classe, level, password });
+      return res.status(201).json(userAuth);
     } catch (error) {
       next(error);
       return res.status(500).json({ error: ' error.message' });

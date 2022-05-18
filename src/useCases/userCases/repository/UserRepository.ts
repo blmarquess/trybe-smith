@@ -8,3 +8,8 @@ export interface IUserRepository{
 export interface IUserToken {
   token: string;
 }
+
+export interface IUserTokenRepository {
+  username: string;
+  id: number;
+}
