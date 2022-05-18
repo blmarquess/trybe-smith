@@ -9,7 +9,8 @@ FROM
         JOIN
     Trybesmith.Orders AS Orders ON Users.id = Orders.userId
         JOIN
-    Trybesmith.Products AS Products ON Orders.id = Products.orderId;`;
+    Trybesmith.Products AS Products ON Orders.id = Products.orderId
+    ORDER BY Orders.userId ASC;`;
 
 export default class OrdersModel {
   constructor(private queryExecute = connection) { }

@@ -5,11 +5,11 @@ const findProducts = (id: number, data:IOrderRepository[]) => data
   .map((i) => i.productsIds);
 
 const orderFormateResponse = (data: IOrderRepository[]) => [...new Set(data
-  .map((order) => order.id))]
+  .map((order) => ({ id: order.id, userId: order.userId })))]
   .map((item) => ({
-    id: item,
-    userId: data.find(({ userId }) => userId === item)?.userId,
-    productsIds: findProducts(item, data),
+    id: item.id,
+    userId: item.userId,
+    productsIds: findProducts(item.id, data),
   }));
 
 export default orderFormateResponse;
