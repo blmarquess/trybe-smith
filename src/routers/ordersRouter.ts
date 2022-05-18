@@ -1,9 +1,8 @@
 import { Router } from 'express';
+import OrderController from '../useCases/orderCases/orderController';
 
 const routes = Router();
 
-routes.get('/', (req, res) => {
-  res.json({ message: 'Routers /orders' });
-});
+routes.get('/:id', new OrderController().getOrder);
 
 export default routes;
